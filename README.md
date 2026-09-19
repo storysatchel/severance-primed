@@ -29,6 +29,26 @@ All pages are US Letter. The trait halos follow Miriam Robern's canonical
 geometry: a painted portrait ringed by one thin continuous circle studded with
 die glyphs, trait labels to the side of each die, name as caption below.
 
+## Build pipeline
+
+`.github/workflows/build-release-pdfs.yml` — inherited from
+[high-winter-elves-of-girlville](https://github.com/storysatchel/high-winter-elves-of-girlville) —
+runs on every push to `main` (and on manual dispatch, where you can choose the
+version bump):
+
+1. **Render** `severance-primed-basis.html` with WeasyPrint →
+   `dist/severance-primed-basis.pdf` (US Letter reading PDF).
+2. **Impose** it 2-up on US Tabloid landscape (17×11 in) →
+   `dist/severance-primed-signatures.pdf` (print-ready booklet signatures,
+   standard outside-in sheet order, padded to a multiple of 4).
+3. **Release** — computes the next semver tag from existing `v*` tags and
+   publishes a GitHub release with both PDFs attached.
+
+Print the signatures PDF on 11×17 (tabloid), 100% scale, duplex flip on long
+edge, then fold into a US Letter booklet. The `dist/` PDFs are build
+artifacts; the committed `severance-primed-basis.pdf` at the repo root
+remains the canonical reading copy.
+
 ## Design notes
 
 - The Nine Principles are the Values prime set (d4–d12) with challengeable
