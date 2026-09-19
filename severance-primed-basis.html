@@ -21,11 +21,17 @@
   @font-face { font-family: "Spectral"; font-style: italic; src: url("fonts/Spectral-Italic.ttf"); }
   @font-face { font-family: "Spectral"; font-weight: 600; src: url("fonts/Spectral-SemiBold.ttf"); }
   @font-face { font-family: "Caveat"; font-weight: 600; src: url("fonts/Caveat-SemiBold.ttf"); }
+  @font-face { font-family: "Courier Prime"; font-weight: 400; src: url("fonts/CourierPrime-Regular.ttf"); }
+  @font-face { font-family: "Courier Prime"; font-weight: 700; src: url("fonts/CourierPrime-Bold.ttf"); }
+  @font-face { font-family: "Courier Prime"; font-style: italic; src: url("fonts/CourierPrime-Italic.ttf"); }
 
+  /* ============ PERPETUITY ARCHIVES BINDER · v0.2.0 ============
+     140lb linen paper · punched ring-holes · buckram covers
+     mylar index tabs · gold foil · halftone file photos ============ */
   @page {
     size: letter;
     margin: 0.95in 0.85in 1.05in 0.85in;
-    background: #F4F6F5;
+    background-color: #F7F4EA;
     @top-center {
       content: "LUMON INDUSTRIES · HANDBOOK FOR THE SEVERED EMPLOYEE";
       font-family: "Archivo"; font-weight: 500; font-size: 6.5pt;
@@ -34,8 +40,8 @@
       margin-bottom: 14pt;
     }
     @bottom-left {
-      content: "DOC. NO. LUM-MDR-0047 · REV. 12";
-      font-family: "IBM Plex Mono"; font-size: 6.5pt; color: #5C6870;
+      content: "DOC. NO. LUM-MDR-0047 · REV. 13";
+      font-family: "Courier Prime"; font-size: 6.5pt; color: #5C6870;
     }
     @bottom-center {
       content: "Remedium Hominibus";
@@ -46,8 +52,26 @@
       font-family: "IBM Plex Mono"; font-size: 7pt; color: #5C6870;
     }
   }
+  /* Punched ring-holes + gutter shading + linen, baked into one
+     background plate per side (WeasyPrint: single image layer on @page).
+     NOTE: WeasyPrint positions @page backgrounds from the page *area*
+     origin, so compensate with negative background-position. */
+  @page :right {
+    background-image: url("holes-right.png");
+    background-size: 8.5in 11in;
+    background-position: -0.85in -0.95in;
+    background-repeat: no-repeat;
+    background-color: #F7F4EA;
+  }
+  @page :left {
+    background-image: url("holes-left.png");
+    background-size: 8.5in 11in;
+    background-position: -0.85in -0.95in;
+    background-repeat: no-repeat;
+    background-color: #F7F4EA;
+  }
   @page cover {
-    margin: 0; background: #F4F6F5;
+    margin: 0;
     @top-center { content: none; border: none; }
     @bottom-left { content: none; } @bottom-center { content: none; } @bottom-right { content: none; }
   }
@@ -69,42 +93,95 @@
   strong { color: #16233f; }
   em { color: #2c3444; }
 
-  /* ---------- cover ---------- */
-  .cover { page: cover; text-align: center; position: relative; break-after: page; }
+  /* ---------- cover: heavy buckram, gold foil ---------- */
+  .cover {
+    page: cover; text-align: center; position: relative; break-after: page;
+    background-color: #141b29;
+    background-image: radial-gradient(rgba(255,255,255,0.045) 1px, transparent 1.6px);
+    background-size: 5px 5px;
+    box-shadow: inset 0 0 90px rgba(0,0,0,0.75);
+  }
+  .cover .banner.bottom {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    border-bottom: none; border-top: 1pt solid rgba(197,160,89,0.35);
+  }
   .cover .banner {
-    background: #294CA2; color: #fff;
+    background: #0d1320; color: #C5A059;
     font-family: "Archivo"; font-weight: 500; font-size: 7.5pt;
     letter-spacing: 0.26em; padding: 11pt 12pt;
+    border-bottom: 1pt solid rgba(197,160,89,0.35);
   }
+  .cover .banner.bottom { border-bottom: none; border-top: 1pt solid rgba(197,160,89,0.35); }
   .cover .watermark {
     position: absolute; top: 1.6in; left: 0; width: 100%; text-align: center;
-    opacity: 0.055;
+    opacity: 0.05;
   }
   .cover .inner { padding: 0.55in 0.7in 0.4in 0.7in; position: relative; }
-  .cover .droplet { width: 1.05in; margin-bottom: 14pt; }
-  .cover .corp {
-    font-family: "Michroma"; font-size: 27pt; color: #294CA2;
-    letter-spacing: 0.08em; margin: 0 0 10pt 0; line-height: 1.2;
+  .cover .medallion {
+    width: 1.5in; height: 1.5in; border-radius: 50%; margin: 0 auto 20pt auto;
+    background: #1a2334; border: 2px solid #0b0f17;
+    box-shadow: inset 0 6px 16px rgba(0,0,0,0.85), 0 1px 0 rgba(255,255,255,0.09);
+    display: flex; align-items: center; justify-content: center;
   }
-  .cover .crule { width: 2.2in; border-top: 2pt solid #294CA2; margin: 0 auto 14pt auto; }
+  .cover .medallion svg { width: 0.72in; opacity: 0.9; }
+  .cover .corp {
+    font-family: "Cinzel"; font-weight: 700; font-size: 26pt; color: #C5A059;
+    letter-spacing: 0.16em; margin: 0 0 12pt 0; line-height: 1.35;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.85), 0 1px 0 rgba(255,255,255,0.16);
+  }
+  .cover .plaque {
+    border: 1pt solid rgba(197,160,89,0.75); padding: 12pt 18pt; margin: 0 auto 16pt auto;
+    max-width: 4.6in;
+  }
   .cover .doctitle {
-    font-family: "Archivo"; font-weight: 700; font-size: 14pt;
-    letter-spacing: 0.3em; color: #16233f; margin: 0 0 8pt 0; line-height: 1.5;
+    font-family: "Cinzel"; font-weight: 700; font-size: 13.5pt;
+    letter-spacing: 0.22em; color: #C5A059; margin: 0 0 6pt 0; line-height: 1.6;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.85), 0 1px 0 rgba(255,255,255,0.14);
   }
   .cover .docsub {
-    font-family: "Spectral"; font-style: italic; font-size: 11pt; color: #3a4356; margin: 0 0 26pt 0;
+    font-family: "Spectral"; font-style: italic; font-size: 10.5pt; color: #9aa3b5; margin: 0;
   }
   .cover .docctl {
-    font-family: "IBM Plex Mono"; font-size: 8pt; line-height: 2; color: #5C6870;
-    letter-spacing: 0.1em; margin-bottom: 30pt;
+    font-family: "Courier Prime"; font-size: 8pt; line-height: 2; color: #8a93a5;
+    letter-spacing: 0.12em; margin: 22pt 0 26pt 0;
   }
   .cover .praise {
     font-family: "Cinzel"; font-weight: 700; font-size: 12pt;
-    letter-spacing: 0.42em; color: #294CA2; margin: 0;
+    letter-spacing: 0.42em; color: #C5A059; margin: 0;
+    text-shadow: 0 -1px 1px rgba(0,0,0,0.85), 0 1px 0 rgba(255,255,255,0.14);
+  }
+  .cover .pnote { background: #fffdf6; }
+
+  /* ---------- inside cover: property card on archive stock ---------- */
+  .insidecover {
+    break-after: page;
+    background-color: #e2d9c2;
+    margin: -0.95in -0.85in -1.05in -0.85in;
+    padding: 0.95in 0.85in 1.05in 0.85in;
+    box-shadow: inset 0 0 60px rgba(90,70,40,0.18);
+  }
+  .propcard {
+    background: #f0ece1; border: 1pt solid #b9b09a;
+    box-shadow: inset 0 0 24px rgba(90,70,40,0.12), 2pt 3pt 0 rgba(30,40,60,0.12);
+    padding: 16pt 18pt; margin: 0 0 18pt 0; page-break-inside: avoid;
+  }
+  .propcard h3 {
+    font-family: "Archivo"; font-weight: 800; font-size: 10pt;
+    letter-spacing: 0.24em; color: #1a2536; margin: 0 0 8pt 0;
+    border-bottom: 1pt solid #b9b09a; padding-bottom: 8pt;
+  }
+  .propcard p { font-size: 9.5pt; }
+  .propcard .issued {
+    font-family: "Courier Prime"; font-size: 8.5pt; color: #4a4438;
+    border-top: 1pt solid #b9b09a; margin-top: 10pt; padding-top: 8pt; line-height: 1.9;
   }
 
   /* ---------- document control ---------- */
   .doccontrol h2 { margin-top: 0; break-before: avoid; }
+  .doccontrol h2 .secnum {
+    font-family: "Courier Prime"; font-weight: 700; font-size: 8.5pt;
+    letter-spacing: 0.3em; color: #5C6870; display: block; margin-bottom: 5pt;
+  }
   .propbox {
     border: 1.5pt solid #294CA2; background: #fff;
     padding: 10pt 12pt; margin: 12pt 0; page-break-inside: avoid;
@@ -115,7 +192,7 @@
   }
   table.rev {
     width: 100%; border-collapse: collapse; margin: 10pt 0;
-    font-family: "IBM Plex Mono"; font-size: 7.5pt; line-height: 1.5;
+    font-family: "Courier Prime"; font-size: 8pt; line-height: 1.5;
   }
   table.rev th {
     font-family: "Archivo"; font-weight: 700; font-size: 7pt; letter-spacing: 0.18em;
@@ -127,18 +204,40 @@
     border-top: 0.6pt solid #c9d4e2; margin-top: 20pt; padding-top: 8pt; text-align: left;
   }
 
-  /* ---------- chapters ---------- */
+  .imprint {
+    font-family: "Courier Prime"; font-size: 7pt; line-height: 1.7; color: #5C6870;
+    border-top: 0.6pt solid #c9d4e2; margin-top: 20pt; padding-top: 8pt; text-align: left;
+  }
+
+  /* ---------- chapters: folio kickers + mylar index tabs ---------- */
   h2 {
-    break-before: page;
-    font-family: "Archivo"; font-weight: 700; font-size: 16pt;
-    letter-spacing: 0.1em; text-transform: uppercase; color: #1E3A7E;
-    border-bottom: 2pt solid #294CA2; padding-bottom: 6pt;
+    break-before: page; position: relative;
+    font-family: "Archivo"; font-weight: 800; font-size: 16pt;
+    letter-spacing: 0.08em; text-transform: uppercase; color: #1a2536;
+    border-bottom: 2pt solid #1a2536; padding-bottom: 6pt;
     margin: 26pt 0 12pt 0; page-break-after: avoid;
   }
-  h2 .secnum {
-    font-family: "Michroma"; font-weight: 400; font-size: 9.5pt;
-    letter-spacing: 0.34em; color: #294CA2; display: block; margin-bottom: 5pt;
+  h2 .folio {
+    font-family: "Courier Prime"; font-weight: 700; font-size: 8.5pt;
+    letter-spacing: 0.3em; color: #5C6870; display: block; margin-bottom: 5pt;
   }
+  /* Mylar tab riding the fore-edge. .tab-r / .tab-l set per chapter after pagination QA. */
+  .mytab {
+    position: absolute; width: 0.55in; height: 1.0in;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
+  }
+  .mytab.tab-r { right: -0.85in; border-radius: 0 4pt 4pt 0; }
+  .mytab.tab-l { left: -0.85in; border-radius: 4pt 0 0 4pt; }
+  .mytab > span {
+    display: inline-block; font-family: "Archivo"; font-weight: 800; font-size: 8pt;
+    letter-spacing: 3px; color: #fff; white-space: nowrap;
+  }
+  .mytab.tab-r > span { transform: rotate(-90deg); }
+  .mytab.tab-l > span { transform: rotate(90deg); }
+  .mytab.blue { background: #294CA2; }
+  .mytab.slate { background: #5C6870; }
+  .mytab.red { background: #BD2026; }
   h3 {
     font-family: "Archivo"; font-weight: 700; font-size: 10.5pt;
     letter-spacing: 0.1em; text-transform: uppercase; color: #1E3A7E;
@@ -221,10 +320,11 @@
     letter-spacing: 0.22em; color: #BD2026; margin-bottom: 8pt;
   }
   .stamp {
-    display: inline-block; font-family: "Archivo"; font-weight: 700;
+    display: inline-block; font-family: "Archivo"; font-weight: 800;
     font-size: 11pt; letter-spacing: 0.2em; color: #294CA2;
-    border: 2.5pt solid #294CA2; padding: 5pt 12pt;
+    border: 3pt solid #294CA2; padding: 5pt 12pt;
     transform: rotate(-6deg); margin: 8pt 0;
+    mix-blend-mode: multiply; opacity: 0.88;
   }
   .stamp.red { color: #BD2026; border-color: #BD2026; transform: rotate(4deg); }
 
@@ -245,18 +345,77 @@
   }
   table.principles td.stmt { font-style: italic; color: #3a4356; }
 
-  /* ---------- intake form ---------- */
+  /* ---------- intake form: carbon paper ---------- */
+  .carbonhead {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    border-bottom: 1.5pt solid #1a2536; padding-bottom: 8pt; margin: 12pt 0 4pt 0;
+    page-break-inside: avoid;
+  }
+  .carbonhead .ftitle {
+    font-family: "Archivo"; font-weight: 800; font-size: 10pt;
+    letter-spacing: 0.14em; color: #1a2536;
+  }
+  .carbonhead .fsub {
+    font-family: "Courier Prime"; font-size: 7.5pt; color: #5C6870; margin-top: 3pt;
+  }
+  .carbonhead .freq {
+    font-family: "Courier Prime"; font-weight: 700; font-size: 8.5pt; color: #1a2536;
+    border: 1pt solid #8a94a6; padding: 4pt 8pt; white-space: nowrap;
+  }
   .formstep {
-    border: 1pt solid #aeb9c7; background: #ffffff;
+    border: 1pt solid #8a94a6; background: #ffffff;
+    background-image: linear-gradient(rgba(0,0,0,0.028), rgba(0,0,0,0.028));
+    box-shadow: 2pt 2pt 0 rgba(20,30,50,0.14);
     padding: 10pt 12pt; margin: 10pt 0; page-break-inside: avoid;
   }
   .formstep .slabel {
-    font-family: "IBM Plex Mono"; font-size: 7.5pt; letter-spacing: 0.2em;
+    font-family: "Courier Prime"; font-weight: 700; font-size: 8pt; letter-spacing: 0.18em;
     color: #294CA2; margin-bottom: 5pt;
   }
   .formstep p:last-child { margin-bottom: 0; }
   .fieldline { border-bottom: 1pt solid #8a94a6; min-height: 20pt; margin: 2pt 0 8pt 0; }
-  .checkboxes { font-family: "IBM Plex Mono"; font-size: 8.5pt; color: #3a4356; margin: 4pt 0 8pt 0; }
+  .checkboxes { font-family: "Courier Prime"; font-size: 8.5pt; color: #3a4356; margin: 4pt 0 8pt 0; }
+  .stampbox {
+    border: 2pt dashed #8a94a6; background: rgba(20,37,82,0.03);
+    padding: 12pt; margin: 12pt 0; text-align: center; page-break-inside: avoid;
+  }
+  .stampbox .sb1 {
+    font-family: "Archivo"; font-weight: 800; font-size: 7.5pt;
+    letter-spacing: 0.24em; color: #5C6870;
+  }
+  .stampbox .sb2 {
+    font-family: "Courier Prime"; font-style: italic; font-size: 7.5pt; color: #8a94a6; margin-top: 4pt;
+  }
+
+  /* ---------- break room biometric log ---------- */
+  .biolog {
+    background: #ece7d8; border: 1pt solid #b9b09a;
+    padding: 8pt 10pt; margin: 10pt 0; page-break-inside: avoid;
+    font-family: "Courier Prime"; font-size: 7.5pt; color: #3a3428;
+  }
+  .biolog .blabel {
+    font-weight: 700; letter-spacing: 0.2em; font-size: 7pt; color: #8a1f24;
+    border-bottom: 1pt solid #b9b09a; padding-bottom: 5pt; margin-bottom: 5pt;
+  }
+  .biolog .brow {
+    display: flex; justify-content: space-between; gap: 8pt;
+    border-bottom: 1pt solid #d8d0ba; padding: 3pt 0;
+  }
+  .biolog .brow:last-child { border-bottom: none; }
+  .biolog .rej { color: #BD2026; font-weight: 700; }
+  .biolog .ins { color: #b06a1a; }
+  .biolog .acc { color: #1D4D3D; font-weight: 700; }
+
+  /* ---------- contraband TABOO ribbon ---------- */
+  .contraband .cbody { position: relative; overflow: hidden; }
+  .ribbon {
+    position: absolute; top: 14pt; right: -30pt;
+    transform: rotate(45deg);
+    background: #BD2026; color: #fff;
+    font-family: "Archivo"; font-weight: 800; font-size: 7pt; letter-spacing: 2px;
+    padding: 3pt 34pt; box-shadow: 1pt 2pt 3pt rgba(0,0,0,0.25);
+    mix-blend-mode: multiply;
+  }
 
   /* ---------- personnel files ---------- */
   .personnel {
@@ -269,7 +428,8 @@
   }
   .filephoto {
     width: 1.45in; height: 1.45in; border-radius: 50%;
-    border: 3pt solid #294CA2; float: right; margin: 0 0 8pt 12pt;
+    border: 2pt solid #333; float: right; margin: 0 0 8pt 12pt;
+    box-shadow: 2pt 2pt 0 rgba(20,30,50,0.18);
   }
   .personnel .cname {
     font-family: "Cinzel"; font-weight: 700; font-size: 15pt; color: #16233f; margin-bottom: 2pt;
@@ -307,7 +467,10 @@
   /* ---------- back cover ---------- */
   .backcover {
     page: backcover; background: #294CA2; color: #fff; text-align: center;
-    padding: 2.6in 0.8in 0 0.8in;
+    padding: 2.4in 0.8in 0 0.8in; min-height: 10.99in;
+    background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1.6px);
+    background-size: 5px 5px;
+    box-shadow: inset 0 0 90px rgba(0,0,0,0.5);
   }
   .backcover .droplet { width: 0.9in; margin-bottom: 18pt; }
   .backcover .praise {
@@ -330,29 +493,38 @@
 <div class="cover">
   <div class="banner">INTERNAL &mdash; SEVERED FLOOR ONLY &middot; DO NOT REMOVE FROM THE PREMISES</div>
   <div class="watermark">
-    <svg width="520" height="728" viewBox="0 0 100 140"><path d="M50 4 C50 4 12 66 12 96 A38 38 0 0 0 88 96 C88 66 50 4 50 4 Z" fill="#294CA2"/></svg>
+    <svg width="520" height="728" viewBox="0 0 100 140"><path d="M50 4 C50 4 12 66 12 96 A38 38 0 0 0 88 96 C88 66 50 4 50 4 Z" fill="#C5A059"/></svg>
   </div>
   <div class="inner">
-    <svg class="droplet" viewBox="0 0 100 140"><path d="M50 4 C50 4 12 66 12 96 A38 38 0 0 0 88 96 C88 66 50 4 50 4 Z" fill="#294CA2"/></svg>
+    <div class="medallion">
+      <svg viewBox="0 0 100 140"><path d="M50 4 C50 4 12 66 12 96 A38 38 0 0 0 88 96 C88 66 50 4 50 4 Z" fill="#33415e"/></svg>
+    </div>
     <div class="corp">LUMON<br>INDUSTRIES</div>
-    <div class="crule"></div>
-    <div class="doctitle">HANDBOOK FOR THE<br>SEVERED EMPLOYEE</div>
-    <p class="docsub">Macrodata Refinement Division &middot; Orientation, Conduct &amp; Compliance</p>
+    <div class="plaque">
+      <div class="doctitle">HANDBOOK FOR THE<br>SEVERED EMPLOYEE</div>
+      <p class="docsub">Macrodata Refinement Division &middot; Orientation, Conduct &amp; Compliance</p>
+    </div>
     <div class="docctl">
-      DOC. NO. LUM-MDR-0047 &middot; REV. 12<br>
-      OFFICE OF CULTURE &amp; COMPLIANCE &middot; KIER, PE<br>
-      EFFECTIVE 09.19.2026
+      CODEX REF LUM-MDR-0047 &middot; REV. 13<br>
+      PERPETUITY ARCHIVES &middot; SUB-LEVEL S<br>
+      OFFICE OF CULTURE &amp; COMPLIANCE &middot; KIER, PE
     </div>
     <p class="praise">PRAISE KIER</p>
   </div>
   <div class="pnote">they gave me this on my first day. I believed every word. <span class="sig">&mdash; P.</span></div>
-  <div style="height: 0.35in;"></div>
-  <div class="banner">REMEDIUM HOMINIBUS &middot; A CURE FOR MANKIND</div>
+  <div class="banner bottom">REMEDIUM HOMINIBUS &middot; A CURE FOR MANKIND</div>
 </div>
 
-<!-- ================= DOCUMENT CONTROL ================= -->
+<!-- ================= INSIDE COVER · DOCUMENT CONTROL ================= -->
+<div class="insidecover">
+<div class="propcard">
+  <h3>Property of Sub-Level S</h3>
+  <p>This physical volume is the sole property of Lumon Industries. It may not be digitized, memorized, or removed from the severed floor under penalty of immediate disciplinary action. The rings are brass. The paper is linen. The words are Kier&rsquo;s.</p>
+  <div class="issued">ISSUED TO: ______________________________ (REFINER)<br>AUTHORIZED BY: MILCHICK, S. &middot; OFFICE OF CULTURE &amp; COMPLIANCE</div>
+</div>
+
 <div class="doccontrol">
-  <h2><span class="secnum">LUM-MDR-0047 &middot; REV. 12</span>Document Control</h2>
+  <h2><span class="secnum">LUM-MDR-0047 &middot; REV. 13</span>Document Control</h2>
 
   <div class="propbox">
     <div class="nlabel">PROPERTY OF LUMON INDUSTRIES</div>
@@ -362,6 +534,7 @@
   <h3>Revision History</h3>
   <table class="rev">
     <tr><th>REV.</th><th>DATE</th><th>CHANGE</th></tr>
+    <tr><td>13</td><td>09.19.2026</td><td>Rebound as Perpetuity Archives binder volume. Marginalia unchanged; the Board declines to comment.</td></tr>
     <tr><td>12</td><td>09.19.2026</td><td>Routine calibration of Chapters 4&ndash;5. Perk illustrations refreshed.</td></tr>
     <tr><td>11</td><td>02.03.2026</td><td>Wellness questionnaire expanded (see Ch. 4).</td></tr>
     <tr><td>10</td><td>11.20.2025</td><td>Chapter 12 removed at the Board&rsquo;s request. Do not ask about Chapter 12.</td></tr>
@@ -378,8 +551,9 @@
     This handbook is issued as the basis document of SEVERANCE PRIMED, a Cortex Prime tabletop game built from Kier Eagan&rsquo;s Nine Principles. Requires the Cortex Prime Game Handbook. 3&ndash;5 players + one GM. The work is mysterious and important.
   </div>
 </div>
+</div>
 
-<h2><span class="secnum">CHAPTER 01</span>Welcome, Refiner</h2>
+<h2><span class="mytab tab-l blue" style="top:-0.10in"><span>WELCOME</span></span><span class="folio">FOLIO I.</span>Welcome, Refiner</h2>
 <div class="epigraph">&ldquo;The work is mysterious and important.&rdquo;<span class="attr">&mdash; ATTRIBUTED TO KIER EAGAN</span></div>
 
 <p>Congratulations, refiner. You have been selected &mdash; from among many qualified candidates, and from among the hours of your own life &mdash; to serve Lumon Industries on the severed floor. This handbook contains everything your innie needs to know. Your outie has already read the other one.</p>
@@ -394,7 +568,7 @@
 <p><strong>Mood:</strong> sterile, uncanny, retro-futurist dread &mdash; long fluorescent hallways, cheerful posters, a waffle party that feels like a threat &mdash; punctured by small, fierce human warmth: a shared joke in MDR, a map drawn from memory, a book passed hand to hand. Play it straight. Let the comedy come from the doctrine, never from the people.</p>
 <p><strong>The protagonists</strong> are severed workers &mdash; refiners, designers, goat-tenders &mdash; with no power except each other and the truth. <strong>The antagonist</strong> is not a person but a system: Lumon Industries, its doctrine, its cameras, its kindness. Named enforcers (Cobel, Milchick) appear as GMCs, but they are the doctrine's hands, not its heart. Per the Cortex heuristics, a system-antagonist means the game's opposition runs on the <strong>Doom Pool</strong> and <strong>Crisis Pools</strong>, not on contests against a faction.</p>
 
-<h2><span class="secnum">CHAPTER 02</span>The Nine Principles</h2>
+<h2><span class="mytab tab-r blue" style="top:0.55in"><span>PRINCIPLES</span></span><span class="folio">FOLIO II.</span>The Nine Principles</h2>
 <div class="epigraph">&ldquo;Nine principles. Nine tails. One path.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>Kier Eagan gave us nine principles, and the nine principles gave us everything. Study them. Internalize them. They are not rules; they are the shape of a good person. Below, each principle is shown with the virtue it claims, the work it quietly does, and the model statement your supervisor will expect to hear.</p>
@@ -443,10 +617,18 @@
 <h3>Personal Effects (Signature Assets)</h3>
 <p>One per refiner, duly registered (or not): a single object the innie has hidden, found, or been given &mdash; <em>Irving's hand-drawn map of the severed floor</em>, <em>a contraband copy of</em> The You You Are, <em>a note in my own handwriting I don't remember writing</em>. Rated <span class="die">d8</span>; it can be taken away, which is why it matters.</p>
 
-<h2><span class="secnum">CHAPTER 03</span>Intake &amp; Calibration</h2>
+<h2><span class="mytab tab-l blue" style="top:1.20in"><span>INTAKE</span></span><span class="folio">FOLIO III.</span>Intake &amp; Calibration</h2>
 <div class="epigraph">&ldquo;Bring your whole self to work. We will keep half.&rdquo;<span class="attr">&mdash; INTAKE POSTER, SEVERED LOBBY</span></div>
 
 <p>Every refiner begins with calibration. Complete each step in order, in ink. Work through them together, out loud &mdash; the table should know every outie's reason, the way coworkers slowly learn each other's. If you do not know an answer, your supervisor does.</p>
+
+<div class="carbonhead">
+  <div>
+    <div class="ftitle">REFINER INTAKE &amp; SEVERANCE CONSENT</div>
+    <div class="fsub">FORM LUM-01 &middot; TRIPLICATE AUTHORIZATION &middot; COMPLETE IN INK</div>
+  </div>
+  <div class="freq">REQ-0047-K</div>
+</div>
 
 <div class="formstep">
   <div class="slabel">STEP 1 &middot; DEPARTMENT ASSIGNMENT</div>
@@ -490,9 +672,14 @@
   <div class="fieldline"></div>
 </div>
 
+<div class="stampbox">
+  <div class="sb1">MANAGEMENT STAMP APPROVAL REQUIRED</div>
+  <div class="sb2">(present this form to your supervisor with the brass stamp)</div>
+</div>
+
 <p>Upon completion you will be issued <strong>1 PP</strong>. The Four Tempers (Chapter 4) all begin unstressed. Welcome to Lumon.</p>
 
-<h2><span class="secnum">CHAPTER 04</span>Conduct &amp; Correction</h2>
+<h2><span class="mytab tab-r blue" style="top:1.85in"><span>CONDUCT</span></span><span class="folio">FOLIO IV.</span>Conduct &amp; Correction</h2>
 <div class="epigraph">&ldquo;Lumon corrects because Lumon cares.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>The procedures in this chapter are therapeutic instruments, calibrated over decades. Cooperate with them and they will never need to be used twice.</p>
@@ -529,6 +716,13 @@
   Forgive me for the harm I have caused this world. None may atone for my actions but me, and only in me shall their stain live on. I am thankful to have been caught, my fall cut short by those with wizened hands. All I can be is sorry, and that is all I am.<span class="cursor">&nbsp;&#9612;</span>
 </div>
 
+<div class="biolog">
+  <div class="blabel">BREAK ROOM BIOMETRIC LOG</div>
+  <div class="brow"><span>Attempt #042</span><span>210 Hz</span><span class="rej">REJECTED (Mechanical)</span></div>
+  <div class="brow"><span>Attempt #118</span><span>175 Hz</span><span class="ins">INSUFFICIENT</span></div>
+  <div class="brow"><span>Attempt #154</span><span>162 Hz</span><span class="acc">ACCEPTED</span></div>
+</div>
+
 <div class="pnote">I read it 214 times. I counted. <span class="sig">&mdash; P.</span></div>
 
 <h3>The Break Room, Wellness, and the Carrot</h3>
@@ -545,7 +739,7 @@
 <p>Filing one is a Test against the Doom Pool. Success means the request reaches your outie. Whether the outie honors it &mdash; whether they even open it &mdash; is a scene for an Outie Interlude, and the GM is under no obligation to be kind.</p>
 <div class="tinynotice">FORM LUM-RES-002 &middot; AVAILABLE FROM YOUR SUPERVISOR &middot; ALLOW 6&ndash;8 WEEKS FOR PROCESSING &middot; WITHDRAWALS OF WITHDRAWALS ARE FINAL</div>
 
-<h2><span class="secnum">CHAPTER 05</span>Beyond the Building</h2>
+<h2><span class="mytab tab-l blue" style="top:2.50in"><span>BEYOND</span></span><span class="folio">FOLIO V.</span>Beyond the Building</h2>
 <div class="epigraph">&ldquo;Your outie maintains a life beyond these walls so that you don&rsquo;t have to.&rdquo;<span class="attr">&mdash; ORIENTATION DAY REMARKS</span></div>
 
 <p>What follows is provided for context only. Do not romanticize it.</p>
@@ -555,14 +749,17 @@
 <p>Discoveries made out here become <strong>Assets the innie finds without knowing why</strong>: <em>a note in your own handwriting &mdash;</em> don't trust the numbers <em>(&nbsp;<span class="die">d8</span>&nbsp;)</em>. The GM may also frame an interlude <em>against</em> the player: the outie considering quitting, the outie meeting someone reintegrated, the outie doing something the innie would hate them for. The two of you share a body and nothing else &mdash; act like it.</p>
 
 <div class="contraband">
+ <div class="cbody">
+  <div class="ribbon">CONTRABAND</div>
   <div class="clabel">&#9760; INSERTED PAGE &mdash; NOT PART OF THE OFFICIAL HANDBOOK</div>
   <div class="pnote">they tore this page out of every copy. I put it back. <span class="sig">&mdash; P.</span></div>
   <h3 style="color:#BD2026;">Reintegration (Growth Pool)</h3>
   <p>Use the <strong>Growth Pool</strong>. At session's end, nominate moments when the selves bled through &mdash; a memory that surfaced mid-shift, an outie dreaming the fluorescent halls. Spend growth to buy <strong>Bridges</strong>: a shared memory both selves can roll, written as a trait both halves of the character sheet can reach (<em>The Lake House, Age Nine</em> &mdash; <span class="die">d8</span>). Bridges are usable by innie <em>and</em> outie, Principles or no Principles. A Bridge ignores the Mutually Exclusive limit. The third Bridge frays the severance for good &mdash; that character's endgame has begun, and Lumon will do anything to stop it.</p>
   <div style="text-align:center;"><span class="stamp red">CONTRABAND</span></div>
+ </div>
 </div>
 
-<h2><span class="secnum">CHAPTER 06</span>Office Directory</h2>
+<h2><span class="mytab tab-r slate" style="top:3.15in"><span>DIRECTORY</span></span><span class="folio">FOLIO VI.</span>Office Directory</h2>
 <div class="epigraph">&ldquo;You will find everything you need on the severed floor.&rdquo;<span class="attr">&mdash; ORIENTATION DAY REMARKS</span></div>
 
 <p><strong>Macrodata Refinement</strong> &mdash; your desks, your numbers, the eerie calm. <strong>Optics &amp; Design</strong> &mdash; poster presses, old departmental grudges, surprisingly good coffee. <strong>Mammalians Nurturable</strong> &mdash; the goats; ask no questions. <strong>The Break Room</strong> &mdash; small, quiet, the statement on the table. <strong>Wellness</strong> &mdash; Ms.&nbsp;Casey's room, blue like a held breath. <strong>The Perpetuity Wing</strong> &mdash; Kier's statue, the paintings, the Eagan lineage watching. <strong>The Exports Hall</strong> &mdash; you do not go there. <strong>The stairwell, the parking lot</strong> &mdash; where the selves change places and neither remembers the handoff.</p>
@@ -570,7 +767,7 @@
 
 <div class="tinynotice">IN CASE OF FIRE, REMAIN AT YOUR WORKSTATION. THE NUMBERS MUST NOT BE LEFT UNSUPERVISED. &middot; IN CASE OF FLOOD, SEE FIRE. &middot; IN CASE OF DEFIANT JAZZ, CONTACT YOUR SUPERVISOR IMMEDIATELY.</div>
 
-<h2><span class="secnum">APPENDIX A</span>Structural Compliance</h2>
+<h2><span class="mytab tab-l red" style="top:3.80in"><span>APP. A</span></span><span class="folio">FOLIO VII.</span>Structural Compliance</h2>
 <div style="text-align:center;"><span class="stamp">MANAGEMENT EYES ONLY</span></div>
 
 <p>The following pages are restricted to Management personnel. If you are reading this without authorization, close the handbook and report to your supervisor. Your supervisor has been notified regardless.</p>
@@ -616,14 +813,14 @@
   </ul>
 </div>
 
-<h2><span class="secnum">APPENDIX B</span>Personnel Files</h2>
+<h2><span class="mytab tab-r slate" style="top:4.45in"><span>APP. B</span></span><span class="folio">FOLIO VIII.</span>Personnel Files</h2>
 <div class="epigraph">&ldquo;Exemplary conduct will be recognized. All other conduct will also be recognized.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>The refiners below have been recognized for exemplary conduct. Emulate them.</p>
 
 <div class="personnel">
   <div class="pfilehead">PERSONNEL FILE &middot; REF-MDR-0117 &middot; CLEARANCE: SEVERED FLOOR</div>
-  <img class="filephoto" src="portraits/sol.png" alt="File photo: Sol W.">
+  <img class="filephoto" src="portraits/sol-halftone.png" alt="File photo: Sol W.">
   <div class="cname">Sol W.</div>
   <div class="crole">MACRODATA REFINEMENT &middot; INNIE, SECOND YEAR</div>
   <dl>
@@ -640,7 +837,7 @@
 
 <div class="personnel">
   <div class="pfilehead">PERSONNEL FILE &middot; REF-MDR-0089 &middot; CLEARANCE: SEVERED FLOOR</div>
-  <img class="filephoto" src="portraits/ana.png" alt="File photo: Ana R.">
+  <img class="filephoto" src="portraits/ana-halftone.png" alt="File photo: Ana R.">
   <div class="cname">Ana R.</div>
   <div class="crole">MACRODATA REFINEMENT &middot; INNIE, FOURTH YEAR</div>
   <dl>
@@ -653,7 +850,7 @@
   </dl>
 </div>
 
-<h2><span class="secnum">FINAL SECTION</span>Orientation Day</h2>
+<h2><span class="mytab tab-r blue" style="top:5.10in"><span>ORIENTATION</span></span><span class="folio">FOLIO IX.</span>Orientation Day</h2>
 <div class="epigraph">&ldquo;Your first day follows the schedule below. Deviations will be noted.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p><strong>Situation.</strong> A new file, <strong>COLD HARBOR</strong>, has landed in Macrodata Refinement with a quota and a deadline. Management announces a "wellness initiative": mandatory sessions for all refiners. And Petra D., the department's senior refiner, hasn't come back from the Break Room &mdash; it's been three days, and her desk is exactly as she left it. The refiners are the ones left holding the file.</p>
@@ -681,7 +878,7 @@
   <div class="praise">PRAISE KIER</div>
   <div class="motto">REMEDIUM HOMINIBUS</div>
   <div class="trans">&ldquo;A Cure for Mankind&rdquo;</div>
-  <div class="addr">LUMON INDUSTRIES &middot; KIER, PE<br><br>DOC. NO. LUM-MDR-0047 &middot; REV. 12</div>
+  <div class="addr">LUMON INDUSTRIES &middot; KIER, PE<br><br>DOC. NO. LUM-MDR-0047 &middot; REV. 13<br><br><br>END OF ARCHIVE</div>
 </div>
 
 </body>
