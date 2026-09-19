@@ -220,23 +220,27 @@
     font-family: "Courier Prime"; font-weight: 700; font-size: 8.5pt;
     letter-spacing: 0.3em; color: #5C6870; display: block; margin-bottom: 5pt;
   }
-  /* Mylar tab riding the fore-edge. .tab-r / .tab-l set per chapter after pagination QA. */
-  .mytab {
+  /* Fore-edge indexing: color patches printed flush to the fore-edge (outer page
+     edge). A PDF cannot protrude past the page box, so these bleed to the edge
+     instead of sticking out like real mylar tabs: square at the page edge,
+     rounded on the inner (text-facing) side, flat printed ink, no shadow.
+     .tab-r / .tab-l ride the fore-edge per chapter after pagination QA;
+     inline tops step down the edge, one band per folio. */
+  .edgetab {
     position: absolute; width: 0.55in; height: 1.0in;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.35);
   }
-  .mytab.tab-r { right: -0.85in; border-radius: 0 4pt 4pt 0; }
-  .mytab.tab-l { left: -0.85in; border-radius: 4pt 0 0 4pt; }
-  .mytab > span {
+  .edgetab.tab-r { right: -0.85in; border-radius: 5pt 0 0 5pt; }
+  .edgetab.tab-l { left: -0.85in; border-radius: 0 5pt 5pt 0; }
+  .edgetab > span {
     display: inline-block; font-family: "Archivo"; font-weight: 800; font-size: 8pt;
     letter-spacing: 3px; color: #fff; white-space: nowrap;
   }
-  .mytab.tab-r > span { transform: rotate(-90deg); }
-  .mytab.tab-l > span { transform: rotate(90deg); }
-  .mytab.blue { background: #294CA2; }
-  .mytab.slate { background: #5C6870; }
-  .mytab.red { background: #BD2026; }
+  .edgetab.tab-r > span { transform: rotate(-90deg); }
+  .edgetab.tab-l > span { transform: rotate(90deg); }
+  .edgetab.blue { background: #294CA2; }
+  .edgetab.slate { background: #5C6870; }
+  .edgetab.red { background: #BD2026; }
   h3 {
     font-family: "Archivo"; font-weight: 700; font-size: 10.5pt;
     letter-spacing: 0.1em; text-transform: uppercase; color: #1E3A7E;
@@ -552,7 +556,7 @@
 </div>
 </div>
 
-<h2><span class="mytab tab-r blue" style="top:-0.10in"><span>WELCOME</span></span><span class="folio">FOLIO I.</span>Welcome, Refiner</h2>
+<h2><span class="edgetab tab-r blue" style="top:-0.10in"><span>WELCOME</span></span><span class="folio">FOLIO I.</span>Welcome, Refiner</h2>
 <div class="epigraph">&ldquo;The work is mysterious and important.&rdquo;<span class="attr">&mdash; ATTRIBUTED TO KIER EAGAN</span></div>
 
 <p>Congratulations, refiner. You have been selected &mdash; from among many qualified candidates, and from among the hours of your own life &mdash; to serve Lumon Industries on the severed floor. This handbook contains everything your innie needs to know. Your outie has already read the other one.</p>
@@ -567,7 +571,7 @@
 <p><strong>Mood:</strong> sterile, uncanny, retro-futurist dread &mdash; long fluorescent hallways, cheerful posters, a waffle party that feels like a threat &mdash; punctured by small, fierce human warmth: a shared joke in MDR, a map drawn from memory, a book passed hand to hand. Play it straight. Let the comedy come from the doctrine, never from the people.</p>
 <p><strong>The protagonists</strong> are severed workers &mdash; refiners, designers, goat-tenders &mdash; with no power except each other and the truth. <strong>The antagonist</strong> is not a person but a system: Lumon Industries, its doctrine, its cameras, its kindness. Named enforcers (Cobel, Milchick) appear as GMCs, but they are the doctrine's hands, not its heart. Per the Cortex heuristics, a system-antagonist means the game's opposition runs on the <strong>Doom Pool</strong> and <strong>Crisis Pools</strong>, not on contests against a faction.</p>
 
-<h2><span class="mytab tab-l blue" style="top:0.55in"><span>PRINCIPLES</span></span><span class="folio">FOLIO II.</span>The Nine Principles</h2>
+<h2><span class="edgetab tab-l blue" style="top:0.55in"><span>PRINCIPLES</span></span><span class="folio">FOLIO II.</span>The Nine Principles</h2>
 <div class="epigraph">&ldquo;Nine principles. Nine tails. One path.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>Kier Eagan gave us nine principles, and the nine principles gave us everything. Study them. Internalize them. They are not rules; they are the shape of a good person. Below, each principle is shown with the virtue it claims, the work it quietly does, and the model statement your supervisor will expect to hear.</p>
@@ -616,7 +620,7 @@
 <h3>Personal Effects (Signature Assets)</h3>
 <p>One per refiner, duly registered (or not): a single object the innie has hidden, found, or been given &mdash; <em>Irving's hand-drawn map of the severed floor</em>, <em>a contraband copy of</em> The You You Are, <em>a note in my own handwriting I don't remember writing</em>. Rated <span class="die">d8</span>; it can be taken away, which is why it matters.</p>
 
-<h2><span class="mytab tab-r blue" style="top:1.20in"><span>INTAKE</span></span><span class="folio">FOLIO III.</span>Intake &amp; Calibration</h2>
+<h2><span class="edgetab tab-r blue" style="top:1.20in"><span>INTAKE</span></span><span class="folio">FOLIO III.</span>Intake &amp; Calibration</h2>
 <div class="epigraph">&ldquo;Bring your whole self to work. We will keep half.&rdquo;<span class="attr">&mdash; INTAKE POSTER, SEVERED LOBBY</span></div>
 
 <p>Every refiner begins with calibration. Complete each step in order, in ink. Work through them together, out loud &mdash; the table should know every outie's reason, the way coworkers slowly learn each other's. If you do not know an answer, your supervisor does.</p>
@@ -678,7 +682,7 @@
 
 <p>Upon completion you will be issued <strong>1 PP</strong>. The Four Tempers (Chapter 4) all begin unstressed. Welcome to Lumon.</p>
 
-<h2><span class="mytab tab-l blue" style="top:1.85in"><span>CONDUCT</span></span><span class="folio">FOLIO IV.</span>Conduct &amp; Correction</h2>
+<h2><span class="edgetab tab-l blue" style="top:1.85in"><span>CONDUCT</span></span><span class="folio">FOLIO IV.</span>Conduct &amp; Correction</h2>
 <div class="epigraph">&ldquo;Lumon corrects because Lumon cares.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>The procedures in this chapter are therapeutic instruments, calibrated over decades. Cooperate with them and they will never need to be used twice.</p>
@@ -738,7 +742,7 @@
 <p>Filing one is a Test against the Doom Pool. Success means the request reaches your outie. Whether the outie honors it &mdash; whether they even open it &mdash; is a scene for an Outie Interlude, and the GM is under no obligation to be kind.</p>
 <div class="tinynotice">FORM LUM-RES-002 &middot; AVAILABLE FROM YOUR SUPERVISOR &middot; ALLOW 6&ndash;8 WEEKS FOR PROCESSING &middot; WITHDRAWALS OF WITHDRAWALS ARE FINAL</div>
 
-<h2><span class="mytab tab-r blue" style="top:2.50in"><span>BEYOND</span></span><span class="folio">FOLIO V.</span>Beyond the Building</h2>
+<h2><span class="edgetab tab-r blue" style="top:2.50in"><span>BEYOND</span></span><span class="folio">FOLIO V.</span>Beyond the Building</h2>
 <div class="epigraph">&ldquo;Your outie maintains a life beyond these walls so that you don&rsquo;t have to.&rdquo;<span class="attr">&mdash; ORIENTATION DAY REMARKS</span></div>
 
 <p>What follows is provided for context only. Do not romanticize it.</p>
@@ -758,7 +762,7 @@
  </div>
 </div>
 
-<h2><span class="mytab tab-l slate" style="top:3.15in"><span>DIRECTORY</span></span><span class="folio">FOLIO VI.</span>Office Directory</h2>
+<h2><span class="edgetab tab-l slate" style="top:3.15in"><span>DIRECTORY</span></span><span class="folio">FOLIO VI.</span>Office Directory</h2>
 <div class="epigraph">&ldquo;You will find everything you need on the severed floor.&rdquo;<span class="attr">&mdash; ORIENTATION DAY REMARKS</span></div>
 
 <p><strong>Macrodata Refinement</strong> &mdash; your desks, your numbers, the eerie calm. <strong>Optics &amp; Design</strong> &mdash; poster presses, old departmental grudges, surprisingly good coffee. <strong>Mammalians Nurturable</strong> &mdash; the goats; ask no questions. <strong>The Break Room</strong> &mdash; small, quiet, the statement on the table. <strong>Wellness</strong> &mdash; Ms.&nbsp;Casey's room, blue like a held breath. <strong>The Perpetuity Wing</strong> &mdash; Kier's statue, the paintings, the Eagan lineage watching. <strong>The Exports Hall</strong> &mdash; you do not go there. <strong>The stairwell, the parking lot</strong> &mdash; where the selves change places and neither remembers the handoff.</p>
@@ -766,7 +770,7 @@
 
 <div class="tinynotice">IN CASE OF FIRE, REMAIN AT YOUR WORKSTATION. THE NUMBERS MUST NOT BE LEFT UNSUPERVISED. &middot; IN CASE OF FLOOD, SEE FIRE. &middot; IN CASE OF DEFIANT JAZZ, CONTACT YOUR SUPERVISOR IMMEDIATELY.</div>
 
-<h2><span class="mytab tab-r red" style="top:3.80in"><span>APP. A</span></span><span class="folio">FOLIO VII.</span>Structural Compliance</h2>
+<h2><span class="edgetab tab-r red" style="top:3.80in"><span>APP. A</span></span><span class="folio">FOLIO VII.</span>Structural Compliance</h2>
 <div style="text-align:center;"><span class="stamp">MANAGEMENT EYES ONLY</span></div>
 
 <p>The following pages are restricted to Management personnel. If you are reading this without authorization, close the handbook and report to your supervisor. Your supervisor has been notified regardless.</p>
@@ -812,7 +816,7 @@
   </ul>
 </div>
 
-<h2><span class="mytab tab-l slate" style="top:4.45in"><span>APP. B</span></span><span class="folio">FOLIO VIII.</span>Personnel Files</h2>
+<h2><span class="edgetab tab-l slate" style="top:4.45in"><span>APP. B</span></span><span class="folio">FOLIO VIII.</span>Personnel Files</h2>
 <div class="epigraph">&ldquo;Exemplary conduct will be recognized. All other conduct will also be recognized.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>The refiners below have been recognized for exemplary conduct. Emulate them.</p>
@@ -849,7 +853,7 @@
   </dl>
 </div>
 
-<h2><span class="mytab tab-l blue" style="top:5.10in"><span>ORIENTATION</span></span><span class="folio">FOLIO IX.</span>Orientation Day</h2>
+<h2><span class="edgetab tab-l blue" style="top:5.10in"><span>ORIENTATION</span></span><span class="folio">FOLIO IX.</span>Orientation Day</h2>
 <div class="epigraph">&ldquo;Your first day follows the schedule below. Deviations will be noted.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p><strong>Situation.</strong> A new file, <strong>COLD HARBOR</strong>, has landed in Macrodata Refinement with a quota and a deadline. Management announces a "wellness initiative": mandatory sessions for all refiners. And Petra D., the department's senior refiner, hasn't come back from the Break Room &mdash; it's been three days, and her desk is exactly as she left it. The refiners are the ones left holding the file.</p>
