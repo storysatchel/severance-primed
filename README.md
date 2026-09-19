@@ -8,7 +8,7 @@ espionage thriller, religious cult drama.
 
 | File | What it is |
 |---|---|
-| `severance-primed-basis.html` | The 19-page basis document, formatted as a diegetic Lumon Industries *Handbook for the Severed Employee* (setting, trait sets, mods, sample PCs, Session One), bound as a Perpetuity Archives binder volume: buckram cover, punched ring holes, mylar fore-edge tabs, linen stock |
+| `severance-primed-basis.html` | The 19-page basis document, formatted as a diegetic Lumon Industries *Handbook for the Severed Employee* (setting, trait sets, mods, sample PCs, Session One), bound as a Perpetuity Archives binder volume: buckram cover, punched ring holes, fore-edge indexing, linen stock |
 | `charsheet.html` | Blank 2-page character sheet (the Lumon file / what's hidden) |
 | `pregens.html` | Pregenerated characters (Sol W., Ana R.) with trait-halo portraits |
 | `portraits/` | Painted retro-corporate portraits + generation metadata |
@@ -65,7 +65,7 @@ The basis document is formatted as a genuine Lumon Industries publication —
 *Handbook for the Severed Employee*, Macrodata Refinement Division
 (Doc. No. LUM-MDR-0047, Rev. 13). v0.2.0 rebinds the handbook as a Perpetuity
 Archives binder volume: buckram cover with gold-foil engraving, punched
-ring holes with inner-edge gutter shading, mylar fore-edge index tabs,
+ring holes with inner-edge gutter shading, fore-edge indexing,
 linen stock, archive property card, carbon-paper intake form, Break Room
 biometric log, and a CONTRABAND ribbon on the reinserted Reintegration page.
 The design follows the show's own visual
