@@ -24,6 +24,7 @@
   @font-face { font-family: "Courier Prime"; font-weight: 400; src: url("fonts/CourierPrime-Regular.ttf"); }
   @font-face { font-family: "Courier Prime"; font-weight: 700; src: url("fonts/CourierPrime-Bold.ttf"); }
   @font-face { font-family: "Courier Prime"; font-style: italic; src: url("fonts/CourierPrime-Italic.ttf"); }
+  @font-face { font-family: "CortexSymbology"; src: url("fonts/CortexSymbology-Regular.ttf"); }
 
   /* ============ PERPETUITY ARCHIVES BINDER · v0.2.0 ============
      140lb linen paper · punched ring-holes · buckram covers
@@ -77,6 +78,11 @@
   }
   @page backcover {
     margin: 0; background: #294CA2;
+    @top-center { content: none; border: none; }
+    @bottom-left { content: none; } @bottom-center { content: none; } @bottom-right { content: none; }
+  }
+  /* Title page: no running heads/footers, but keeps the archival plate from :left. */
+  @page titlepage {
     @top-center { content: none; border: none; }
     @bottom-left { content: none; } @bottom-center { content: none; } @bottom-right { content: none; }
   }
@@ -152,6 +158,34 @@
     letter-spacing: 0.42em; color: #C5A059; margin: 0;
     text-shadow: 0 -1px 1px rgba(0,0,0,0.85), 0 1px 0 rgba(255,255,255,0.14);
   }
+  /* ---------- title page: a breath of white after the buckram ---------- */
+  .titlepage {
+    page: titlepage; break-after: page; text-align: center;
+    padding: 2.1in 1in 0 1in;
+  }
+  .titlepage .tmark { opacity: 0.14; margin-bottom: 26pt; }
+  .titlepage .tcorp {
+    font-family: "Cinzel"; font-weight: 700; font-size: 10pt;
+    letter-spacing: 0.42em; color: #5C6870; margin: 0 0 14pt 0;
+  }
+  .titlepage .trule {
+    width: 1.4in; margin: 0 auto 20pt auto;
+    border-top: 1pt solid rgba(197,160,89,0.8);
+  }
+  .titlepage .ttitle {
+    font-family: "Cinzel"; font-weight: 700; font-size: 21pt; line-height: 1.5;
+    letter-spacing: 0.18em; color: #16233f; margin: 0 0 12pt 0;
+  }
+  .titlepage .tsub {
+    font-family: "Spectral"; font-style: italic; font-size: 11pt;
+    color: #5C6870; margin: 0;
+  }
+  .titlepage .tctl {
+    margin-top: 2.4in;
+    font-family: "Courier Prime"; font-size: 8pt; line-height: 2;
+    letter-spacing: 0.14em; color: #8a93a5;
+  }
+
   /* ---------- inside cover: property card on archive stock ---------- */
   .insidecover {
     break-after: page;
@@ -465,10 +499,10 @@
   }
   .personnel dd { margin: 2pt 0 0 0; }
 
-  .die {
-    font-family: "IBM Plex Mono"; font-weight: 500; font-size: 8pt;
-    background: #294CA2; color: #fff;
-    padding: 1.5pt 6pt; border-radius: 2pt; white-space: nowrap;
+  /* Geometric dice / plot-point glyphs (CortexSymbology) replace textual dX / PP. */
+  .sym {
+    font-family: "CortexSymbology"; font-size: 1.18em; line-height: 1;
+    vertical-align: -0.06em;
   }
   .modlist { columns: 2; column-gap: 24pt; font-size: 9.2pt; }
   .modlist h4 {
@@ -535,6 +569,21 @@
   <div class="banner bottom">REMEDIUM HOMINIBUS &middot; A CURE FOR MANKIND</div>
 </div>
 
+<!-- ================= TITLE PAGE ================= -->
+<div class="titlepage">
+  <div class="tmark">
+    <svg width="64" height="90" viewBox="0 0 100 140"><path d="M50 4 C50 4 12 66 12 96 A38 38 0 0 0 88 96 C88 66 50 4 50 4 Z" fill="#294CA2"/></svg>
+  </div>
+  <p class="tcorp">LUMON INDUSTRIES</p>
+  <div class="trule"></div>
+  <h1 class="ttitle">HANDBOOK FOR THE<br>SEVERED EMPLOYEE</h1>
+  <p class="tsub">Macrodata Refinement Division<br>Orientation, Conduct &amp; Compliance</p>
+  <div class="tctl">
+    CODEX REF LUM-MDR-0047 &middot; REV. 13<br>
+    PERPETUITY ARCHIVES &middot; SUB-LEVEL S
+  </div>
+</div>
+
 <!-- ================= INSIDE COVER · DOCUMENT CONTROL ================= -->
 <div class="insidecover">
 <div class="propcard">
@@ -573,7 +622,7 @@
 </div>
 </div>
 
-<h2><span class="edgetab tab-r blue" style="top:-0.10in"><span>WELCOME</span></span><span class="folio">FOLIO I.</span>Welcome, Refiner</h2>
+<h2><span class="edgetab tab-l blue" style="top:-0.10in"><span>WELCOME</span></span><span class="folio">FOLIO I.</span>Welcome, Refiner</h2>
 <div class="epigraph">&ldquo;The work is mysterious and important.&rdquo;<span class="attr">&mdash; ATTRIBUTED TO KIER EAGAN</span></div>
 
 <p>Congratulations, refiner. You have been selected &mdash; from among many qualified candidates, and from among the hours of your own life &mdash; to serve Lumon Industries on the severed floor. This handbook contains everything your innie needs to know. Your outie has already read the other one.</p>
@@ -588,17 +637,17 @@
 <p><strong>Mood:</strong> sterile, uncanny, retro-futurist dread &mdash; long fluorescent hallways, cheerful posters, a waffle party that feels like a threat &mdash; punctured by small, fierce human warmth: a shared joke in MDR, a map drawn from memory, a book passed hand to hand. Play it straight. Let the comedy come from the doctrine, never from the people.</p>
 <p><strong>The protagonists</strong> are severed workers &mdash; refiners, designers, goat-tenders &mdash; with no power except each other and the truth. <strong>The antagonist</strong> is not a person but a system: Lumon Industries, its doctrine, its cameras, its kindness. Named enforcers (Cobel, Milchick) appear as GMCs, but they are the doctrine's hands, not its heart. Per the Cortex heuristics, a system-antagonist means the game's opposition runs on the <strong>Doom Pool</strong> and <strong>Crisis Pools</strong>, not on contests against a faction.</p>
 
-<h2><span class="edgetab tab-l blue" style="top:0.55in"><span>PRINCIPLES</span></span><span class="folio">FOLIO II.</span>The Nine Principles</h2>
+<h2><span class="edgetab tab-r blue" style="top:0.55in"><span>PRINCIPLES</span></span><span class="folio">FOLIO II.</span>The Nine Principles</h2>
 <div class="epigraph">&ldquo;Nine principles. Nine tails. One path.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>Kier Eagan gave us nine principles, and the nine principles gave us everything. Study them. Internalize them. They are not rules; they are the shape of a good person. Below, each principle is shown with the virtue it claims, the work it quietly does, and the model statement your supervisor will expect to hear.</p>
 <p>Three prime sets, plus Distinctions as always. There are no Attributes, no Skills, no Powers on the severed floor &mdash; Lumon hired your hands, not your r&eacute;sum&eacute;, and the chip took the rest.</p>
 
 <h3>Distinctions</h3>
-<p>Three per refiner, each rated <span class="die">d8</span> (roll <span class="die">d4</span> instead to gain 1 PP, per the standard rule). Severance imposes one structure on them: <strong>one distinction must belong to your outie</strong> (the life outside: <em>My Outie Buried His Wife on a Tuesday</em>), <strong>one must belong to your innie</strong> (the life at work: <em>The Friendliest Refiner on the Floor</em>), and <strong>one is free</strong> &mdash; the self in question, the part of you neither Lumon nor your outie can fully name (<em>I Laugh When I Shouldn't</em>).</p>
+<p>Three per refiner, each rated <span class="sym">&#x2467;</span> (roll <span class="sym">&#x2463;</span> instead to gain 1 <span class="sym">&#x24c5;</span>, per the standard rule). Severance imposes one structure on them: <strong>one distinction must belong to your outie</strong> (the life outside: <em>My Outie Buried His Wife on a Tuesday</em>), <strong>one must belong to your innie</strong> (the life at work: <em>The Friendliest Refiner on the Floor</em>), and <strong>one is free</strong> &mdash; the self in question, the part of you neither Lumon nor your outie can fully name (<em>I Laugh When I Shouldn't</em>).</p>
 
 <h3>The Nine Principles (Values)</h3>
-<p>The game's Values set is Kier Eagan's Nine Principles &mdash; the doctrine's virtues, each carrying its true function underneath. Every principle is rated <span class="die">d4</span>&ndash;<span class="die">d12</span> and carries a one-line <strong>statement</strong>, written in Kier's liturgical voice or your own. The ratings measure how deeply the innie has internalized the doctrine &mdash; not how good they are.</p>
+<p>The game's Values set is Kier Eagan's Nine Principles &mdash; the doctrine's virtues, each carrying its true function underneath. Every principle is rated <span class="sym">&#x2463;</span>&ndash;<span class="sym">&#x246B;</span> and carries a one-line <strong>statement</strong>, written in Kier's liturgical voice or your own. The ratings measure how deeply the innie has internalized the doctrine &mdash; not how good they are.</p>
 
 <table class="principles">
   <tr><th>PRINCIPLE</th><th>THE VIRTUE IT CLAIMS</th><th>THE WORK IT DOES</th><th>MODEL STATEMENT</th></tr>
@@ -618,26 +667,26 @@
 <div class="notice">
   <div class="nlabel">PRINCIPLES IN PLAY</div>
   <p><strong>Uphold.</strong> When you act at real cost to honor a principle's statement &mdash; smiling through the grief, obeying the order that sickens you &mdash; step that principle up one die for the rest of the scene, and describe the doctrine speaking through you.</p>
-  <p><strong>Challenge.</strong> When you violate a principle to act like a free person &mdash; asking the forbidden question, refusing the cheerful mask, turning your wiles against Lumon itself &mdash; gain <strong>1 PP</strong>, and the GM steps up the lowest die in the Doom Pool. <span class="doctrine">Lumon notices.</span> The waffle party's nine-tailed whip has one tail for each principle; every challenge is a lash the doctrine remembers.</p>
+  <p><strong>Challenge.</strong> When you violate a principle to act like a free person &mdash; asking the forbidden question, refusing the cheerful mask, turning your wiles against Lumon itself &mdash; gain <strong>1 <span class="sym">&#x24c5;</span></strong>, and the GM steps up the lowest die in the Doom Pool. <span class="doctrine">Lumon notices.</span> The waffle party's nine-tailed whip has one tail for each principle; every challenge is a lash the doctrine remembers.</p>
 </div>
 
 <h3>Relationships</h3>
 <p>Two sets, one awake at a time &mdash; the severance runs through your people too. This is the <strong>Mutually Exclusive</strong> limit: only the active set's dice can enter a pool. The other set is shut down.</p>
 <ul>
-  <li><strong>Inside</strong> &mdash; awake on the severed floor. <strong><span class="die">d10</span></strong>: one fellow innie you trust with your real thoughts. <strong><span class="die">d8</span></strong>: one more inside figure &mdash; a coworker, or Management (Cobel, Milchick, Ms.&nbsp;Casey). Everyone else in here is <span class="die">d6</span>.</li>
-  <li><strong>Outside</strong> &mdash; shut down while you're innie. <strong><span class="die">d8</span></strong>: one key person from your outie's life. Everyone else out there is <span class="die">d6</span>. This set comes online during Outie Interludes &mdash; and only then, unless something breaks the rules.</li>
-  <li><strong><span class="die">d8</span> &mdash; My Outie</strong>: your relationship with your own other self. The one relationship severance can't cut &mdash; it is <strong>never shut down</strong>, whichever set is active. Roll it when you act on knowledge only your outie could have, when you defy your outie's wishes, or when the two of you &mdash; impossibly &mdash; seem to be working together.</li>
+  <li><strong>Inside</strong> &mdash; awake on the severed floor. <strong><span class="sym">&#x2469;</span></strong>: one fellow innie you trust with your real thoughts. <strong><span class="sym">&#x2467;</span></strong>: one more inside figure &mdash; a coworker, or Management (Cobel, Milchick, Ms.&nbsp;Casey). Everyone else in here is <span class="sym">&#x2465;</span>.</li>
+  <li><strong>Outside</strong> &mdash; shut down while you're innie. <strong><span class="sym">&#x2467;</span></strong>: one key person from your outie's life. Everyone else out there is <span class="sym">&#x2465;</span>. This set comes online during Outie Interludes &mdash; and only then, unless something breaks the rules.</li>
+  <li><strong><span class="sym">&#x2467;</span> &mdash; My Outie</strong>: your relationship with your own other self. The one relationship severance can't cut &mdash; it is <strong>never shut down</strong>, whichever set is active. Roll it when you act on knowledge only your outie could have, when you defy your outie's wishes, or when the two of you &mdash; impossibly &mdash; seem to be working together.</li>
 </ul>
 <div class="notice">
   <div class="nlabel">MEMORANDUM &mdash; THE FLIP</div>
-  <p>Every severance transition flips the active set <strong>automatically</strong>: elevator down, Inside comes online and Outside shuts down; elevator up, the reverse. The flip itself pays nothing &mdash; it's just the premise. The Limit pays <strong>1 PP</strong> when <strong>you</strong> shut down a set, once, at the moment of shutdown: switching sets mid-shift (the Overtime Contingency below), or sitting out a scene without your people (the set restores at the next scene).</p>
+  <p>Every severance transition flips the active set <strong>automatically</strong>: elevator down, Inside comes online and Outside shuts down; elevator up, the reverse. The flip itself pays nothing &mdash; it's just the premise. The Limit pays <strong>1 <span class="sym">&#x24c5;</span></strong> when <strong>you</strong> shut down a set, once, at the moment of shutdown: switching sets mid-shift (the Overtime Contingency below), or sitting out a scene without your people (the set restores at the next scene).</p>
   <p>Two things break the exclusion. The <strong>Overtime Contingency</strong> flips the set for a scene (below). A <strong>Bridge</strong> &mdash; a shared memory bought with growth &mdash; ignores it entirely; both selves can roll it. The third Bridge frays the severance for good, and the exclusion starts failing everywhere. That's the endgame.</p>
 </div>
 
 <h3>Personal Effects (Signature Assets)</h3>
-<p>One per refiner, duly registered (or not): a single object the innie has hidden, found, or been given &mdash; <em>Irving's hand-drawn map of the severed floor</em>, <em>a contraband copy of</em> The You You Are, <em>a note in my own handwriting I don't remember writing</em>. Rated <span class="die">d8</span>; it can be taken away, which is why it matters.</p>
+<p>One per refiner, duly registered (or not): a single object the innie has hidden, found, or been given &mdash; <em>Irving's hand-drawn map of the severed floor</em>, <em>a contraband copy of</em> The You You Are, <em>a note in my own handwriting I don't remember writing</em>. Rated <span class="sym">&#x2467;</span>; it can be taken away, which is why it matters.</p>
 
-<h2><span class="edgetab tab-r blue" style="top:1.20in"><span>INTAKE</span></span><span class="folio">FOLIO III.</span>Intake &amp; Calibration</h2>
+<h2><span class="edgetab tab-l blue" style="top:1.20in"><span>INTAKE</span></span><span class="folio">FOLIO III.</span>Intake &amp; Calibration</h2>
 <div class="epigraph">&ldquo;Bring your whole self to work. We will keep half.&rdquo;<span class="attr">&mdash; INTAKE POSTER, SEVERED LOBBY</span></div>
 
 <p>Every refiner begins with calibration. Complete each step in order, in ink. Work through them together, out loud &mdash; the table should know every outie's reason, the way coworkers slowly learn each other's. If you do not know an answer, your supervisor does.</p>
@@ -664,14 +713,14 @@
 </div>
 
 <div class="formstep">
-  <div class="slabel">STEP 3 &middot; DISTINCTIONS (THREE, EACH <span class="die">d8</span>)</div>
+  <div class="slabel">STEP 3 &middot; DISTINCTIONS (THREE, EACH <span class="sym">&#x2467;</span>)</div>
   <p>One <strong>outie</strong>, one <strong>innie</strong>, one <strong>free</strong> &mdash; the self in question, the part of you neither Lumon nor your outie can fully name.</p>
   <div class="fieldline"></div><div class="fieldline"></div><div class="fieldline"></div>
 </div>
 
 <div class="formstep">
   <div class="slabel">STEP 4 &middot; THE NINE PRINCIPLES</div>
-  <p>All begin at <span class="die">d8</span>; step <strong>two</strong> up to <span class="die">d10</span> and <strong>two</strong> down to <span class="die">d6</span>. Write a one-line statement for each. Your two <span class="die">d10</span>s are the doctrine's hooks in you; your two <span class="die">d6</span>s are where you're already slipping.</p>
+  <p>All begin at <span class="sym">&#x2467;</span>; step <strong>two</strong> up to <span class="sym">&#x2469;</span> and <strong>two</strong> down to <span class="sym">&#x2465;</span>. Write a one-line statement for each. Your two <span class="sym">&#x2469;</span>s are the doctrine's hooks in you; your two <span class="sym">&#x2465;</span>s are where you're already slipping.</p>
 </div>
 
 <div class="formstep">
@@ -681,7 +730,7 @@
 </div>
 
 <div class="formstep">
-  <div class="slabel">STEP 6 &middot; PERSONAL EFFECT (<span class="die">d8</span>)</div>
+  <div class="slabel">STEP 6 &middot; PERSONAL EFFECT (<span class="sym">&#x2467;</span>)</div>
   <p>Choose one object and say where it's hidden. If it is contraband, do not write that here.</p>
   <div class="fieldline"></div>
 </div>
@@ -697,9 +746,9 @@
   <div class="sb2">(present this form to your supervisor with the brass stamp)</div>
 </div>
 
-<p>Upon completion you will be issued <strong>1 PP</strong>. The Four Tempers (Chapter 4) all begin unstressed. Welcome to Lumon.</p>
+<p>Upon completion you will be issued <strong>1 <span class="sym">&#x24c5;</span></strong>. The Four Tempers (Chapter 4) all begin unstressed. Welcome to Lumon.</p>
 
-<h2><span class="edgetab tab-l blue" style="top:1.85in"><span>CONDUCT</span></span><span class="folio">FOLIO IV.</span>Conduct &amp; Correction</h2>
+<h2><span class="edgetab tab-r blue" style="top:1.85in"><span>CONDUCT</span></span><span class="folio">FOLIO IV.</span>Conduct &amp; Correction</h2>
 <div class="epigraph">&ldquo;Lumon corrects because Lumon cares.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>The procedures in this chapter are therapeutic instruments, calibrated over decades. Cooperate with them and they will never need to be used twice.</p>
@@ -709,26 +758,26 @@
 <p><strong>Contests</strong> happen only against named GMCs &mdash; out-staring Milchick, lying to Cobel's face. You never roll against Lumon itself, the Board, or a department: those are systems, and systems are the <strong>Doom Pool</strong> and <strong>Crisis Pools</strong>.</p>
 
 <h3>The Nine (Doom Pool)</h3>
-<p>Lumon's doctrine, weaponized. The Doom Pool begins at <span class="die">d6</span> <span class="die">d6</span> and follows the standard rules &mdash; the GM adds a die on player opportunities (rolled 1s) &mdash; plus Severance-specific triggers:</p>
+<p>Lumon's doctrine, weaponized. The Doom Pool begins at <span class="sym">&#x2465;</span> <span class="sym">&#x2465;</span> and follows the standard rules &mdash; the GM adds a die on player opportunities (rolled 1s) &mdash; plus Severance-specific triggers:</p>
 <ul>
   <li><strong>Grows</strong> when a refiner challenges a Principle (step up the lowest die), when a shift ends with the File unrefined, when the Overtime Contingency is used, and after every Compunction.</li>
   <li><strong>Spends</strong> to interrupt a scene with Management, to inflict temper stress directly (<em>Cobel's smile doesn't reach her eyes &mdash; take Dread stress</em>), to summon a refiner to the Break Room or Wellness, to separate the party, or to reveal that a trusted routine was surveillance all along.</li>
-  <li><strong>Escalation:</strong> once the pool holds <span class="die">d10</span>s, the Board takes notice &mdash; new directives, new cameras, a visit. At <span class="die">d12</span> <span class="die">d12</span>, the endgame unlocks: the testing floor doors open, or the Board convenes, and the season turns.</li>
+  <li><strong>Escalation:</strong> once the pool holds <span class="sym">&#x2469;</span>s, the Board takes notice &mdash; new directives, new cameras, a visit. At <span class="sym">&#x246B;</span> <span class="sym">&#x246B;</span>, the endgame unlocks: the testing floor doors open, or the Board convenes, and the season turns.</li>
 </ul>
 
 <div class="pnote">nine tails. one for each principle. count them at the waffle party. <span class="sig">&mdash; P.</span></div>
 
 <h3>The Files (Crisis Pools) &mdash; Refinement</h3>
-<p>Each MDR file &mdash; <em>Cold Harbor</em>, <em>Allentown</em>, <em>Siena</em> &mdash; is a <strong>Crisis Pool</strong> (e.g. Cold Harbor: three <span class="die">d8</span>s). A shift is a <strong>Timed Test</strong>: each refiner acts once, assembling a pool of a Principle (Wit, Nimbleness, and &mdash; daringly &mdash; Wiles) plus Distinctions and Relationships for teamwork. Effect dice step the File down; when the pool is gone, the file is complete &mdash; and something is revealed: a name, a face, a set of numbers that sorts toward someone you know.</p>
+<p>Each MDR file &mdash; <em>Cold Harbor</em>, <em>Allentown</em>, <em>Siena</em> &mdash; is a <strong>Crisis Pool</strong> (e.g. Cold Harbor: three <span class="sym">&#x2467;</span>s). A shift is a <strong>Timed Test</strong>: each refiner acts once, assembling a pool of a Principle (Wit, Nimbleness, and &mdash; daringly &mdash; Wiles) plus Distinctions and Relationships for teamwork. Effect dice step the File down; when the pool is gone, the file is complete &mdash; and something is revealed: a name, a face, a set of numbers that sorts toward someone you know.</p>
 <p>Rolling a 1 while refining means the numbers got to you: take temper stress (GM's choice of Woe or Dread). This is the job's real wage.</p>
 
 <h3>The Four Tempers (Stress)</h3>
 <p>Kier taught that every worker carries four tempers to be tamed &mdash; <strong>Woe</strong> (melancholy, grief, inward despair), <strong>Frolic</strong> (levity, aimless indulgence), <strong>Dread</strong> (paralysis, apprehension), <strong>Malice</strong> (spite, defiance). Lumon calls them weaknesses. This handbook notes, for the record, that they are also the proof you're still human.</p>
-<p>Each track steps <span class="die">d6</span> &rarr; <span class="die">d8</span> &rarr; <span class="die">d10</span> &rarr; <span class="die">d12</span>. At <span class="die">d10</span> or higher the temper visibly warps your behavior &mdash; roleplay it; everyone at the table can see the crack.</p>
+<p>Each track steps <span class="sym">&#x2465;</span> &rarr; <span class="sym">&#x2467;</span> &rarr; <span class="sym">&#x2469;</span> &rarr; <span class="sym">&#x246B;</span>. At <span class="sym">&#x2469;</span> or higher the temper visibly warps your behavior &mdash; roleplay it; everyone at the table can see the crack.</p>
 
 <div class="notice">
   <div class="nlabel">COMPUNCTION</div>
-  <p>When a temper would step past <span class="die">d12</span>, the refiner is <strong>summoned to the Break Room</strong>. Play the scene: the small room, the statement on the monitor, read aloud, read again, read until it sounds true. When it's over, the temper resets to <span class="die">d6</span> &mdash; but the GM adds a <span class="die">d8</span> to the Doom Pool and steps <strong>down</strong> one of the refiner's Principles. The doctrine corrects. It always collects its fee.</p>
+  <p>When a temper would step past <span class="sym">&#x246B;</span>, the refiner is <strong>summoned to the Break Room</strong>. Play the scene: the small room, the statement on the monitor, read aloud, read again, read until it sounds true. When it's over, the temper resets to <span class="sym">&#x2465;</span> &mdash; but the GM adds a <span class="sym">&#x2467;</span> to the Doom Pool and steps <strong>down</strong> one of the refiner's Principles. The doctrine corrects. It always collects its fee.</p>
 </div>
 
 <div class="terminal">
@@ -751,7 +800,7 @@
 <p class="genres">APPROVED GENRES: Bawdy funk &middot; Bouncy swing &middot; Buoyant reggae &middot; Defiant jazz &middot; Effusive ska &middot; Exalted choral &middot; Exciting rap &middot; Hootin tootin country &middot; Lofty orchestra &middot; Maximized rhythms &middot; Playful punk &middot; Reckless disco &middot; Spooky ambient &middot; Tearful emo &middot; Thoughtful grunge</p>
 
 <h3>The Overtime Contingency</h3>
-<p>Spend <strong>1 PP</strong> and add a <span class="die">d8</span> to the Doom Pool: <strong>flip the active relationship set for one scene</strong> &mdash; your outie wakes inside. Inside shuts down (the Limit: gain <strong>1 PP</strong>, so the contingency costs you a Doom die, not plot points); Outside comes online. Roll only outie-side traits &mdash; Outie distinction, free distinction, Outside relationships (and My Outie) &mdash; no Principles; the doctrine doesn't recognize this person. What the outie does with the body, the innie will never remember &mdash; unless someone was watching.</p>
+<p>Spend <strong>1 <span class="sym">&#x24c5;</span></strong> and add a <span class="sym">&#x2467;</span> to the Doom Pool: <strong>flip the active relationship set for one scene</strong> &mdash; your outie wakes inside. Inside shuts down (the Limit: gain <strong>1 <span class="sym">&#x24c5;</span></strong>, so the contingency costs you a Doom die, not plot points); Outside comes online. Roll only outie-side traits &mdash; Outie distinction, free distinction, Outside relationships (and My Outie) &mdash; no Principles; the doctrine doesn't recognize this person. What the outie does with the body, the innie will never remember &mdash; unless someone was watching.</p>
 
 <div class="pnote">it works. that&rsquo;s the worst part. <span class="sig">&mdash; P.</span></div>
 
@@ -759,14 +808,14 @@
 <p>Filing one is a Test against the Doom Pool. Success means the request reaches your outie. Whether the outie honors it &mdash; whether they even open it &mdash; is a scene for an Outie Interlude, and the GM is under no obligation to be kind.</p>
 <div class="tinynotice">FORM LUM-RES-002 &middot; AVAILABLE FROM YOUR SUPERVISOR &middot; ALLOW 6&ndash;8 WEEKS FOR PROCESSING &middot; WITHDRAWALS OF WITHDRAWALS ARE FINAL</div>
 
-<h2><span class="edgetab tab-r blue" style="top:2.50in"><span>BEYOND</span></span><span class="folio">FOLIO V.</span>Beyond the Building</h2>
+<h2><span class="edgetab tab-l blue" style="top:2.50in"><span>BEYOND</span></span><span class="folio">FOLIO V.</span>Beyond the Building</h2>
 <div class="epigraph">&ldquo;Your outie maintains a life beyond these walls so that you don&rsquo;t have to.&rdquo;<span class="attr">&mdash; ORIENTATION DAY REMARKS</span></div>
 
 <p>What follows is provided for context only. Do not romanticize it.</p>
 
 <h3>Outie Interludes</h3>
 <p>Between shifts, each player frames a short scene as their <strong>outie</strong> &mdash; the parking lot, the apartment, the support group for the severed. Outies assemble pools from <strong>Distinctions and Relationships only</strong>: no Principles. The doctrine doesn't live outside the building. The Inside set is shut down out here &mdash; only Outside relationships (and My Outie) are on the table.</p>
-<p>Discoveries made out here become <strong>Assets the innie finds without knowing why</strong>: <em>a note in your own handwriting &mdash;</em> don't trust the numbers <em>(&nbsp;<span class="die">d8</span>&nbsp;)</em>. The GM may also frame an interlude <em>against</em> the player: the outie considering quitting, the outie meeting someone reintegrated, the outie doing something the innie would hate them for. The two of you share a body and nothing else &mdash; act like it.</p>
+<p>Discoveries made out here become <strong>Assets the innie finds without knowing why</strong>: <em>a note in your own handwriting &mdash;</em> don't trust the numbers <em>(&nbsp;<span class="sym">&#x2467;</span>&nbsp;)</em>. The GM may also frame an interlude <em>against</em> the player: the outie considering quitting, the outie meeting someone reintegrated, the outie doing something the innie would hate them for. The two of you share a body and nothing else &mdash; act like it.</p>
 
 <div class="contraband">
  <div class="cbody">
@@ -774,12 +823,12 @@
   <div class="clabel">&#9760; INSERTED PAGE &mdash; NOT PART OF THE OFFICIAL HANDBOOK</div>
   <div class="pnote">they tore this page out of every copy. I put it back. <span class="sig">&mdash; P.</span></div>
   <h3 style="color:#BD2026;">Reintegration (Growth Pool)</h3>
-  <p>Use the <strong>Growth Pool</strong>. At session's end, nominate moments when the selves bled through &mdash; a memory that surfaced mid-shift, an outie dreaming the fluorescent halls. Spend growth to buy <strong>Bridges</strong>: a shared memory both selves can roll, written as a trait both halves of the character sheet can reach (<em>The Lake House, Age Nine</em> &mdash; <span class="die">d8</span>). Bridges are usable by innie <em>and</em> outie, Principles or no Principles. A Bridge ignores the Mutually Exclusive limit. The third Bridge frays the severance for good &mdash; that character's endgame has begun, and Lumon will do anything to stop it.</p>
+  <p>Use the <strong>Growth Pool</strong>. At session's end, nominate moments when the selves bled through &mdash; a memory that surfaced mid-shift, an outie dreaming the fluorescent halls. Spend growth to buy <strong>Bridges</strong>: a shared memory both selves can roll, written as a trait both halves of the character sheet can reach (<em>The Lake House, Age Nine</em> &mdash; <span class="sym">&#x2467;</span>). Bridges are usable by innie <em>and</em> outie, Principles or no Principles. A Bridge ignores the Mutually Exclusive limit. The third Bridge frays the severance for good &mdash; that character's endgame has begun, and Lumon will do anything to stop it.</p>
   <div style="text-align:center;"><span class="stamp red">CONTRABAND</span></div>
  </div>
 </div>
 
-<h2><span class="edgetab tab-l slate" style="top:3.15in"><span>DIRECTORY</span></span><span class="folio">FOLIO VI.</span>Office Directory</h2>
+<h2><span class="edgetab tab-r slate" style="top:3.15in"><span>DIRECTORY</span></span><span class="folio">FOLIO VI.</span>Office Directory</h2>
 <div class="epigraph">&ldquo;You will find everything you need on the severed floor.&rdquo;<span class="attr">&mdash; ORIENTATION DAY REMARKS</span></div>
 
 <p><strong>Macrodata Refinement</strong> &mdash; your desks, your numbers, the eerie calm. <strong>Optics &amp; Design</strong> &mdash; poster presses, old departmental grudges, surprisingly good coffee. <strong>Mammalians Nurturable</strong> &mdash; the goats; ask no questions. <strong>The Break Room</strong> &mdash; small, quiet, the statement on the table. <strong>Wellness</strong> &mdash; Ms.&nbsp;Casey's room, blue like a held breath. <strong>The Perpetuity Wing</strong> &mdash; Kier's statue, the paintings, the Eagan lineage watching. <strong>The Exports Hall</strong> &mdash; you do not go there. <strong>The stairwell, the parking lot</strong> &mdash; where the selves change places and neither remembers the handoff.</p>
@@ -787,7 +836,7 @@
 
 <div class="tinynotice">IN CASE OF FIRE, REMAIN AT YOUR WORKSTATION. THE NUMBERS MUST NOT BE LEFT UNSUPERVISED. &middot; IN CASE OF FLOOD, SEE FIRE. &middot; IN CASE OF DEFIANT JAZZ, CONTACT YOUR SUPERVISOR IMMEDIATELY.</div>
 
-<h2><span class="edgetab tab-r red" style="top:3.80in"><span>APP. A</span></span><span class="folio">FOLIO VII.</span>Structural Compliance</h2>
+<h2><span class="edgetab tab-l red" style="top:3.80in"><span>APP. A</span></span><span class="folio">FOLIO VII.</span>Structural Compliance</h2>
 <div style="text-align:center;"><span class="stamp">MANAGEMENT EYES ONLY</span></div>
 
 <p>The following pages are restricted to Management personnel. If you are reading this without authorization, close the handbook and report to your supervisor. Your supervisor has been notified regardless.</p>
@@ -823,7 +872,7 @@
     <li>Stress &mdash; as <strong>The Four Tempers</strong>, with <strong>Compunction</strong> replacing stress-out</li>
   </ul>
   <h4>PLOT POINTS</h4>
-  <ul><li>Starting PP: 1</li></ul>
+  <ul><li>Starting <span class="sym">&#x24c5;</span>: 1</li></ul>
   <h4>GMCs</h4>
   <ul>
     <li>Major: Harmony Cobel, Seth Milchick</li>
@@ -833,7 +882,7 @@
   </ul>
 </div>
 
-<h2><span class="edgetab tab-l slate" style="top:4.45in"><span>APP. B</span></span><span class="folio">FOLIO VIII.</span>Personnel Files</h2>
+<h2><span class="edgetab tab-r slate" style="top:4.45in"><span>APP. B</span></span><span class="folio">FOLIO VIII.</span>Personnel Files</h2>
 <div class="epigraph">&ldquo;Exemplary conduct will be recognized. All other conduct will also be recognized.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p>The refiners below have been recognized for exemplary conduct. Emulate them.</p>
@@ -845,10 +894,10 @@
   <div class="crole">MACRODATA REFINEMENT &middot; INNIE, SECOND YEAR</div>
   <dl>
     <dt>Outie's reason</dt><dd>Severed after the ferry accident he blames himself for &mdash; he wanted eight hours a day without remembering.</dd>
-    <dt>Distinctions</dt><dd><em>My Outie Drowned Someone</em> (outie) <span class="die">d8</span> &middot; <em>The Friendliest Refiner on the Floor</em> (innie) <span class="die">d8</span> &middot; <em>I Laugh When I Shouldn't</em> (free) <span class="die">d8</span></dd>
-    <dt>Principles</dt><dd>Cheer <span class="die">d10</span> <span class="doctrine">"Grief is just cheer, misfiled."</span> &middot; Benevolence <span class="die">d10</span> &middot; Wiles <span class="die">d6</span> &middot; Probity <span class="die">d6</span> &middot; all others <span class="die">d8</span></dd>
-    <dt>Relationships</dt><dd><strong>Inside:</strong> Ana R. <span class="die">d10</span> &middot; Ms.&nbsp;Casey <span class="die">d8</span> &middot; rest <span class="die">d6</span> &mdash; <strong>Outside:</strong> <span class="die">d8</span> &middot; rest <span class="die">d6</span> &mdash; <strong>My Outie</strong> <span class="die">d8</span> (never shuts down)</dd>
-    <dt>Personal Effect</dt><dd><em>A ferry token in my desk drawer, warm some mornings</em> <span class="die">d8</span></dd>
+    <dt>Distinctions</dt><dd><em>My Outie Drowned Someone</em> (outie) <span class="sym">&#x2467;</span> &middot; <em>The Friendliest Refiner on the Floor</em> (innie) <span class="sym">&#x2467;</span> &middot; <em>I Laugh When I Shouldn't</em> (free) <span class="sym">&#x2467;</span></dd>
+    <dt>Principles</dt><dd>Cheer <span class="sym">&#x2469;</span> <span class="doctrine">"Grief is just cheer, misfiled."</span> &middot; Benevolence <span class="sym">&#x2469;</span> &middot; Wiles <span class="sym">&#x2465;</span> &middot; Probity <span class="sym">&#x2465;</span> &middot; all others <span class="sym">&#x2467;</span></dd>
+    <dt>Relationships</dt><dd><strong>Inside:</strong> Ana R. <span class="sym">&#x2469;</span> &middot; Ms.&nbsp;Casey <span class="sym">&#x2467;</span> &middot; rest <span class="sym">&#x2465;</span> &mdash; <strong>Outside:</strong> <span class="sym">&#x2467;</span> &middot; rest <span class="sym">&#x2465;</span> &mdash; <strong>My Outie</strong> <span class="sym">&#x2467;</span> (never shuts down)</dd>
+    <dt>Personal Effect</dt><dd><em>A ferry token in my desk drawer, warm some mornings</em> <span class="sym">&#x2467;</span></dd>
     <dt>Secret</dt><dd>His outie has started leaving him messages &mdash; and the latest one says <em>don't refine Cold Harbor</em>.</dd>
   </dl>
 </div>
@@ -862,15 +911,15 @@
   <div class="crole">MACRODATA REFINEMENT &middot; INNIE, FOURTH YEAR</div>
   <dl>
     <dt>Outie's reason</dt><dd>A Kier devotee who severed as an act of faith &mdash; she tithed her workday to the founder.</dd>
-    <dt>Distinctions</dt><dd><em>My Outie Tithes to Kier</em> (outie) <span class="die">d8</span> &middot; <em>I Ask the Questions No One Asks</em> (innie) <span class="die">d8</span> &middot; <em>A Mind Like a Snare</em> (free) <span class="die">d8</span></dd>
-    <dt>Principles</dt><dd>Humility <span class="die">d10</span> <span class="doctrine">"I am the smallest thing in Kier's house."</span> &middot; Probity <span class="die">d10</span> &middot; Cheer <span class="die">d6</span> &middot; Verve <span class="die">d6</span> &middot; all others <span class="die">d8</span></dd>
-    <dt>Relationships</dt><dd><strong>Inside:</strong> Sol W. <span class="die">d10</span> &middot; Seth Milchick <span class="die">d8</span> (fear counts) &middot; rest <span class="die">d6</span> &mdash; <strong>Outside:</strong> <span class="die">d8</span> &middot; rest <span class="die">d6</span> &mdash; <strong>My Outie</strong> <span class="die">d8</span> (never shuts down)</dd>
-    <dt>Personal Effect</dt><dd><em>Pages of</em> The You You Are <em>copied by hand, hidden in a ceiling tile</em> <span class="die">d8</span></dd>
+    <dt>Distinctions</dt><dd><em>My Outie Tithes to Kier</em> (outie) <span class="sym">&#x2467;</span> &middot; <em>I Ask the Questions No One Asks</em> (innie) <span class="sym">&#x2467;</span> &middot; <em>A Mind Like a Snare</em> (free) <span class="sym">&#x2467;</span></dd>
+    <dt>Principles</dt><dd>Humility <span class="sym">&#x2469;</span> <span class="doctrine">"I am the smallest thing in Kier's house."</span> &middot; Probity <span class="sym">&#x2469;</span> &middot; Cheer <span class="sym">&#x2465;</span> &middot; Verve <span class="sym">&#x2465;</span> &middot; all others <span class="sym">&#x2467;</span></dd>
+    <dt>Relationships</dt><dd><strong>Inside:</strong> Sol W. <span class="sym">&#x2469;</span> &middot; Seth Milchick <span class="sym">&#x2467;</span> (fear counts) &middot; rest <span class="sym">&#x2465;</span> &mdash; <strong>Outside:</strong> <span class="sym">&#x2467;</span> &middot; rest <span class="sym">&#x2465;</span> &mdash; <strong>My Outie</strong> <span class="sym">&#x2467;</span> (never shuts down)</dd>
+    <dt>Personal Effect</dt><dd><em>Pages of</em> The You You Are <em>copied by hand, hidden in a ceiling tile</em> <span class="sym">&#x2467;</span></dd>
     <dt>Secret</dt><dd>She has started keeping a list of everything Wellness asks about her outie &mdash; and the list is getting long.</dd>
   </dl>
 </div>
 
-<h2><span class="edgetab tab-l blue" style="top:5.10in"><span>ORIENTATION</span></span><span class="folio">FOLIO IX.</span>Orientation Day</h2>
+<h2><span class="edgetab tab-r blue" style="top:5.10in"><span>ORIENTATION</span></span><span class="folio">FOLIO IX.</span>Orientation Day</h2>
 <div class="epigraph">&ldquo;Your first day follows the schedule below. Deviations will be noted.&rdquo;<span class="attr">&mdash; OFFICE OF CULTURE &amp; COMPLIANCE</span></div>
 
 <p><strong>Situation.</strong> A new file, <strong>COLD HARBOR</strong>, has landed in Macrodata Refinement with a quota and a deadline. Management announces a "wellness initiative": mandatory sessions for all refiners. And Petra D., the department's senior refiner, hasn't come back from the Break Room &mdash; it's been three days, and her desk is exactly as she left it. The refiners are the ones left holding the file.</p>
@@ -886,7 +935,7 @@
 <p><strong>Opening scenes:</strong></p>
 <ol>
   <li><strong>The video.</strong> Kier's voice over the Perpetuity Wing tour: the Nine Principles recited like scripture. Each player states which principle their innie clings to &mdash; and which one already itches.</li>
-  <li><strong>First shift.</strong> Cold Harbor on the screens (Crisis Pool, three <span class="die">d8</span>s). Refine. The numbers feel wrong for exactly one refiner &mdash; their choice which, and why.</li>
+  <li><strong>First shift.</strong> Cold Harbor on the screens (Crisis Pool, three <span class="sym">&#x2467;</span>s). Refine. The numbers feel wrong for exactly one refiner &mdash; their choice which, and why.</li>
   <li><strong>The summons.</strong> Split the party: one refiner to Wellness (Ms.&nbsp;Casey, one impossible question), one to the Break Room (Petra D.'s chair is still warm). The rest watch the hallway and learn what surveillance feels like.</li>
 </ol>
 
