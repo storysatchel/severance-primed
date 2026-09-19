@@ -85,6 +85,7 @@
   body {
     font-family: "Spectral", Georgia, serif;
     font-size: 10pt; line-height: 1.55; color: #232a35;
+    margin: 0; /* zero the UA default: fore-edge index tabs bleed to the page box edge */
   }
   p { margin: 0 0 8pt 0; text-align: justify; }
   ul, ol { margin: 0 0 8pt 0; padding-left: 18pt; }
@@ -411,13 +412,17 @@
 
   /* ---------- contraband ribbon: full diagonal band, text always readable ---------- */
   .contraband .cbody { position: relative; overflow: hidden; }
+  /* Diagonal CONTRABAND band taped across the reinserted page. Kept fully inside
+     .cbody (no negative offsets): a wider/steeper band gets visibly guillotined
+     by overflow:hidden at the insert's edges. -9deg at 96% width keeps every
+     corner inside the box, so no hard clip lines. Soft red-tinted shadow only. */
   .ribbon {
-    position: absolute; top: 23%; left: -6%; width: 112%;
-    transform: rotate(-13deg);
-    background: rgba(189,32,38,0.88); color: #fff;
+    position: absolute; top: 34%; left: 2%; width: 96%; z-index: 2;
+    transform: rotate(-9deg);
+    background: rgba(189,32,38,0.92); color: #fff;
     font-family: "Archivo"; font-weight: 800; font-size: 10pt; letter-spacing: 8px;
-    text-align: center; padding: 6pt 0;
-    box-shadow: 1pt 3pt 6pt rgba(0,0,0,0.28);
+    text-align: center; padding: 6pt 0 6pt 8px;
+    box-shadow: 0 2pt 6pt rgba(60,10,12,0.22);
   }
 
   /* ---------- personnel files ---------- */
